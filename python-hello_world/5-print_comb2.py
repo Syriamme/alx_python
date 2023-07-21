@@ -1,2 +1,3 @@
 for num in range (100):
-    print (num)
+    if num < 100:
+        print ("{:02d}".format(num), end=", ")
