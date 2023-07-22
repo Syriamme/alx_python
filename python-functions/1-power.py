@@ -8,7 +8,7 @@ example
 8
 return (a ** b)
 """
-def power(a, b):
+def pow(a, b):
     result = 1
     if b >= 0:
         for i in range(b):
