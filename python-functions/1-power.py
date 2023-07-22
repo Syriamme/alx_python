@@ -12,11 +12,11 @@ def power(a, b):
     """
     results = 1
     if b >= 0:
-        for _ in range(b):
+        for i in range(b):
             results *= a
     else:
         b = -b
         for i in range(b):
             results *= a
             results = 1 / results
-            return results
+    return results
