@@ -1,23 +1,15 @@
 import sys
 
-def main():
-    arguments = len(sys.argv) - 1
-    list = sys.argv[1:]
+def print_args_info():
+    argv = sys.argv
+    num_args = len(argv) - 1  # Subtract 1 because argv[0] is the script name itself
 
-    print("Number of arguments: {}".format(arguments), end=" ")
-    if arguments == 1:
-        print("argument:", end=" ")
+    if num_args > 0:
+        print(f"Number of arguments: {num_args}:")
+        for i in range(1, len(argv)):
+            print(f"{i}: {argv[i]}")
     else:
-        print("arguments: ", end=" ")
-
-    if arguments == 0:
-        print(".")
-
-    else:
-        print()
-        
-    for i in range(arguments):
-        print(f'{i + 1}: {list[i]}')
+        print("Number of arguments: 0.")
 
 if __name__ == "__main__":
-    main()
+    print_args_info()
