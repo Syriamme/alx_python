@@ -1,13 +1,13 @@
 def add(a, b):
     return (a + b)
 
-a = 1
-b = 2
-
-from add_0 import add
-
-adding = add(a, b)
-print("{} + {} = {}".format(a, b, adding))
+def main():
+    from add_0 import add
+    a = 1
+    b = 2
+    
+    adding = add(a, b)
+    print("{} + {} = {}".format(a, b, adding))
 
 if __name__ == "__main__":
     main()
