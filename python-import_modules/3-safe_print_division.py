@@ -1,12 +1,14 @@
 def safe_print_division(a, b):
-    
+    result = None
     try:
-        division_result = a / b
-
+        result = a / b
     except ZeroDivisionError:
-        return None
-    
+        print("Cannot divide by zero.")
+    except TypeError:
+        print("Inputs should be integers.")
     finally:
-        print("Inside result:: {}".format(division_result))
-
-    return division_result
+        if result is not None:
+            print("Inside result: {}".format(result))
+        else:
+            print("No result due to error.")
+    return result
