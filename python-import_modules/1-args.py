@@ -5,9 +5,10 @@ if __name__ == "__main__":
     list = sys.argv[1:]
 
     print('Number of arguments: {}'.format(arguments), end='')
-
     if arguments == 1:
-        print("argument:", end = " ")
+        print('argument:', end=' ')
+    else:
+        print('arguments:', end=' ')
 
     if arguments == 0:
         print(".")
