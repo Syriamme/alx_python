@@ -1,6 +1,6 @@
 import sys
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     arguments = len(sys.argv) - 1
     list = sys.argv[1:]
 
