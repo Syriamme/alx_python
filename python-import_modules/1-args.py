@@ -16,7 +16,7 @@ def main():
 
             print(f"{i}: {argument[i]}")
     else:
-        print(".")
+        print("0 arguments.")
 
 if __name__ == "__main__":
     main()
