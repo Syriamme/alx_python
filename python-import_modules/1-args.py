@@ -1,6 +1,6 @@
 import sys
 
-if __name__ == "__main__":
+def main():
     arguments = len(sys.argv) - 1
     list = sys.argv[1:]
 
@@ -18,3 +18,6 @@ if __name__ == "__main__":
 
         for i in range(arguments):
             print("{}: {}".format(i + 1, list[i]))
+
+if __name__ == "__main__":
+    main()
