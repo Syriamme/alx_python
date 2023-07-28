@@ -4,7 +4,7 @@ def add(a, b):
 a = 1
 b = 2
 
-import add_0
+from add_0 import add
 
 adding = add(a, b)
 print("{} + {} = {}".format(a, b, adding))
