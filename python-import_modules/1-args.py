@@ -4,11 +4,11 @@ def main():
     arguments = len(sys.argv) - 1
     list = sys.argv[1:]
 
-    print('Number of arguments: {}'.format(arguments), end='')
+    print("Number of arguments: {}".format(arguments), end=" ")
     if arguments == 1:
-        print('argument:', end=' ')
+        print("argument:", end=" ")
     else:
-        print('arguments:', end=' ')
+        print("arguments: ", end=" ")
 
     if arguments == 0:
         print(".")
