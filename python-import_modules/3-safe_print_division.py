@@ -5,7 +5,7 @@ def safe_print_division(a, b):
         result = a / b
         
     except Exception as n:
-        print ("Error: {}" .format(n))
+        pass
     
     finally:
         print("Inside result: {}".format(result))
