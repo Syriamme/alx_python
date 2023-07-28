@@ -2,7 +2,7 @@ import sys
 
 def print_args_info():
     argv = sys.argv
-    num_args = len(argv) - 1  # Subtract 1 because argv[0] is the script name itself
+    num_args = len(argv) - 1
 
     if num_args > 0:
         print(f"Number of arguments: {num_args}:")
