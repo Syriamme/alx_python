@@ -9,5 +9,5 @@ from add_0 import add
 adding = add(a, b)
 print("{} + {} = {}".format(a, b, adding))
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     main()
