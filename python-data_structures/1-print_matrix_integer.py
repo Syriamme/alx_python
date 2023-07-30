@@ -5,8 +5,9 @@ def print_matrix_integer(matrix=[[]]):
         for columns in rows:
             
             print("{:d}".format(columns), end=" ")
-            
+        
         print()
+        
 if __name__ == "__main__":
     testing_matrix = [
         [1, 9, 10, 14],
