@@ -1,5 +1,9 @@
 def print_matrix_integer(matrix=[[]]):
     for row in matrix:
+        if not row:
+            print()
+            continue
+
         counter = 0
         for item in row:
             if counter != len(row) - 1:
