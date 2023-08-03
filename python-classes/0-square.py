@@ -1,41 +1,41 @@
 """
-This module provides a Square class. The Square class allows you to create and manipulate Square objects, which represent squares in a geometric context.
+The module provides a Square class
+The Square class will create and manipulate Square objects.
 """
 
 class Square:
     """
-    A Square class represents a geometric square. 
-    It is characterized by a single attribute: size, which represents the length of a side of the square. 
+    A Square class. 
+    Characterized by a single attribute: 
+    size- represents square length. 
     """
 
     def __init__(self, size):
         """
-        The constructor for the Square class.
-
+        Constructor for the Square class.
         Parameters:
-            size (int or float): The size (length of a side) of the square.
+            size (int or float): Size (length of a side) of the square.
         """
-        self.__size = size  # private attribute
+        self.__size = size
 
-    # getter method for size
+
     def get_size(self):
         """
-        The getter method for the size attribute of the Square class.
-
+        Getter method (size attribut)e.
         Returns:
-            int or float: The size (length of a side) of the square.
+            float or int: Side length size of the square.
         """
         return self.__size
+    
 
-    # setter method for size
     def set_size(self, new_size):
         """
-        The setter method for the size attribute of the Square class.
+        Size attribute of the Square class (setter method).
 
-        Parameters:
-            new_size (int or float): The new size (length of a side) of the square.
-
+        Param:
+            new_size of the square sides.
         Returns:
             None
         """
+
         self.__size = new_size
