@@ -1,41 +1,26 @@
+"""This module defines a class 'Square'
+
+The 'Square' class defines a square by size, which is private.
+"""
+
+
 class Square:
-    """
-    This class represents a square with a private size attribute.
+    """This is a class that defines a square.
+
+    It is defined by its size which is private.
     """
 
-    def __init__(self, size):
-        """
-        Initialize a square with the given size.
+    def __init__(self, size=0):
+        """Initializes the square.
+
+        Args:
+            size: The size of the square.
         """
         self.__size = size
 
-    def __dict__(self):
-        """
-        Returns the dictionary representation of the square object.
-        """
-        return {'size': self.__size}
-
-
-mysquare = Square(3)
-print(type(mysquare))
-# Output: <class '__main__.Square'>
-print(mysquare.__dict__)
-# Output: {'size': 3}
-
-mysquare = Square(89)
-print(type(mysquare))
-# Output: <class '__main__.Square'>
-print(mysquare.__dict__)
-# Output: {'size': 89}
+my_square = Square(3)
 
 try:
-    print(my_square.size)
-except Exception as e:
-    print(e)
-    # Output: 'Square' object has no attribute 'size'
-
-try:
-    print(mysquare._size)
-except Exception as e:
-    print(e)
-    # Output: 'Square' object has no attribute '_size'
+    print(my_square.__size)  # Trying to directly access private attribute
+except Exception as n:
+    print(n)  # Prints "'Square' object has no attribute '__size'"
