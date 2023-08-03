@@ -20,7 +20,5 @@ class Square:
 
 my_square = Square(3)
 
-try:
-    print(my_square.__size)  # Trying to directly access private attribute
-except Exception as n:
-    print(n)  # Prints "'Square' object has no attribute '__size'"
+print(type(my_square))  # Prints "<class '0-square.Square'>"
+print(my_square.__dict__)  # Prints "{'_Square__size': 3}"
