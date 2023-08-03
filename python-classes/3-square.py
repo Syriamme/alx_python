@@ -1,42 +1,46 @@
 """
-Module that provides a Square class
+A Module that gives a Square class
+
 """
 
 class Square:
     """
-    Square class representing a square. 
-    Defined by a single attribute: size, which represents the length of a side of the square.
+    Square class representing a square.
+    A single character attribute - size
     """
 
     def __init__(self, size=0):
         """
-        The Square class constructor.
+        Class constructor.
         Param:
-            size: length of a side of the square set to default (0).
+            size - length set to default (0).
         Raises:
-            TypeError: If the size is not an integer.
-            ValueError: If the size is less than 0.
+            TypeError
+            valueError
         """
         self.size = size
 
     @property
     def size(self):
         """
-        The getter method for the size attribute of the Square class.
+        Getter method
         Returns:
-            int: The size (length of a side) of the square.
+            int: Square's length of a side.
         """
         return self.__size
 
     @size.setter
     def size(self, value):
         """
-        The setter method for the size attribute of the Square class.
+        Setter method
+
         Parameters:
-            value (int): The new size (length of a side) of the square.
+            int: Length of a side in the square
+
         Raises:
-            TypeError: If the value is not an integer.
-            ValueError: If the value is less than 0.
+        ValueError
+        TypeError
+
         """
         if not isinstance(value, int):
             raise TypeError('size must be an integer')
@@ -47,8 +51,10 @@ class Square:
 
     def area(self):
         """
-        Calculating the area of the square.
+        Calculates square area
         Returns:
-            int: The area of the square.
+
+            int: Area
+        
         """
         return self.__size ** 2
