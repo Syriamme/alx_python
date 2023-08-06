@@ -1,8 +1,16 @@
+"""
+base_geometry module
+This module contains the definition of the class BaseGeometry, which is a base class
+for representing geometric shapes. It includes methods to calculate area (not implemented)
+and to validate integer values.
+"""
+
 class BaseGeometry:
     """
     A base class representing geometric shapes.
 
-    Attributes: None
+    Attributes:
+        None
 
     Methods:
         area(self): Raises an exception since area calculation is not implemented.
