@@ -1,6 +1,7 @@
-# File: base_geometry.py
+"""
 
-# Define a module named base_geometry
+Define a module named base_geometry
+"""
 
 class BaseGeometry:
     """
