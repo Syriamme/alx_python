@@ -1,15 +1,14 @@
 def is_same_class(obj, a_class):
     """
-    Determine if an object is exactly an instance of a specified class.
+    This function checks whether the given object is exactly an instance of the specified class.
+    It does not take into consideration inheritance, and therefore only returns True if the object's
+    type matches the specified class exactly.
 
-    This function compares the type of the object with the specified class.
-    It returns True if the object is exactly an instance of the class, otherwise False.
-
-    Args:
-        obj (object): The object to be checked.
-        a_class (type): The class type to be compared with.
-
-    Returns:
-        bool: True if the object is exactly an instance of the specified class, otherwise False.
+    :param obj: The object whose class is to be checked
+    :type obj: object
+    :param a_class: The class against which the object is to be checked
+    :type a_class: class
+    :return: True if the object is exactly an instance of the specified class, otherwise False
+    :rtype: bool
     """
     return type(obj) is a_class
