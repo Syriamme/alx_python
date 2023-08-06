@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 """
 The module is a geometric base class which is empty
-and serves as a parent class 
+and serves as a parent class
 for forming geometric shapes
 """
-class BaseGeometry():
+
+
+class BaseGeometry:
     """
     BaseGeometry class is currently empty.
     This can be modified with methods and attributes
