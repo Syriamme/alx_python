@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 The module is a geometric base class which is empty
 and serves as a parent class 
@@ -10,5 +11,3 @@ class BaseGeometry:
     as required for various geometric functionalities.
     """
     pass
-ob = BaseGeometry()
-print(ob)
