@@ -10,3 +10,5 @@ class BaseGeometry:
     as required for various geometric functionalities.
     """
     pass
+ob = BaseGeometry()
+print(ob)
