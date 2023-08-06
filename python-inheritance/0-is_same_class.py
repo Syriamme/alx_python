@@ -1,23 +1,26 @@
 """
-This module provides a function to check whether a given object is exactly an instance of a specified class.
-It does not consider inheritance, so it will return False if the object is an instance of a subclass of the
-specified class.
+The module is a function to check if a given object is similar to an instance.
 
-The primary function in this module is:
-    - is_same_class(obj, a_class): Checks if the object is exactly an instance of the specified class.
+It fails to consider inheritance, which means it will return False, 
+when the object is an instance of a subclass of the class.
+
 """
 
 def is_same_class(obj, a_class):
     """
-    This function checks whether the given object is exactly an instance of the specified class.
-    It does not take into consideration inheritance, and therefore only returns True if the object's
+    This function checks if the given object is an instance of the given class.
+    It fails to consider inheritance, and therefore 
+    only returns True if the object's
     type matches the specified class exactly.
 
-    :param obj: The object whose class is to be checked
+    :param obj: The object which class is to checked
     :type obj: object
+
     :param a_class: The class against which the object is to be checked
     :type a_class: class
-    :return: True if the object is exactly an instance of the specified class, otherwise False
+
+    :return: True while the object is similar to 
+    instance of the class specified
     :rtype: bool
     """
     return type(obj) is a_class
