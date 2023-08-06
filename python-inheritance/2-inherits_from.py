@@ -4,6 +4,7 @@ The module provides a function to check, if an object is an instance of a class
 that inherited from the class.
 """
 
+
 def inherits_from(obj, a_class):
 
     """
