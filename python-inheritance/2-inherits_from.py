@@ -5,6 +5,7 @@ that inherited from the class.
 """
 
 def inherits_from(obj, a_class):
+
     """
     function to check if the object is an instance of a class inherited from the class.
     Params:
