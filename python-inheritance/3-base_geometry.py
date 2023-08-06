@@ -8,4 +8,3 @@ class BaseGeometry:
     This can be modified with methods and attributes
     as required for various geometric functionalities.
     """
-    pass
