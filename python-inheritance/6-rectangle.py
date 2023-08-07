@@ -37,17 +37,16 @@ class BaseGeometry:
         
         if value <= 0:
             raise ValueError(f"{name} must be greater than 0")
-        """
-        Class showing rectangles
-        Attributes:
-        __width (int): The width
-        __height (int): The height
-        Methods:
-        __init__(self, width, height): Initializes a Rectangle (instance with width and height).
-        """
         
 class Rectangle(BaseGeometry):
-
+    """
+    Class showing rectangles
+    Attributes:
+    __width (int): The width
+    __height (int): The height
+    Methods:
+    __init__(self, width, height): Initializes a Rectangle (instance with width and height).
+    """
     def __init__(self, width, height):
         """
         Initializes the Rectangle instance
