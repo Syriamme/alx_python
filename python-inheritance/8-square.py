@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 """
 Module with a class Rectangle.
 Rectangle being the subclass.
@@ -55,14 +56,11 @@ class Rectangle(BaseGeometry):
 class Square(Rectangle):
     """
     A class showing squares, inherited from Rectangle
-
     Attr:
-        __size (int): The square's sides
-
+    __size (int): The square's sides
     Methods:
-        __init__(self, size): Initializes a Square instance
+    __init__(self, size): Initializes a Square instance
     """
-
     def __init__(self, size):
         """
         Initializes a Square instance
@@ -76,8 +74,7 @@ class Square(Rectangle):
     def __str__(self):
         """
         Return: string representation
-
         Returns:
-            str: Description of the square
+        str: Description of the square
         """
         return f"[Square] {self.__size}/{self.__size}"
