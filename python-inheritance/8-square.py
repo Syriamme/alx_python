@@ -6,7 +6,7 @@ Module with a class Rectangle.
 Rectangle being the subclass.
 """
 
-BaseGeometry = __import__('5-base_geometry').BaseGeometry
+BaseGeometry = __import__('7-rectangle').BaseGeometry
 
 
 class Rectangle(BaseGeometry):
