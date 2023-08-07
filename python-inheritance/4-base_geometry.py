@@ -1,23 +1,24 @@
 """
 
-Define a module named base_geometry
+Module based on 3-base_geomtry.py
 """
 
 class BaseGeometry:
     """
-    A base class representing geometric shapes.
+    Base class for geometric shapes.
 
-    Attributes: None
+    Attributes: No attributes
 
-    Methods:
-        area(self): Raises an exception since area calculation is not implemented.
+    Public instance method:
+        area(self): Will raise an exception if not implemented.
     """
 
     def area(self):
         """
-        Calculate the area of the geometric shape.
+        checks the are of the shape.
 
         Raises:
-            Exception: This method should be implemented in the subclass.
+            Exception: if not implemented in the subclass.
         """
         raise Exception("area() is not implemented")
+    
