@@ -1,71 +1,62 @@
 """
-geometry module
-This module contains the definition of the class BaseGeometry and a class Rectangle
-that inherits from BaseGeometry. BaseGeometry is a base class for representing geometric shapes,
-while Rectangle represents a specific shape with width and height.
+base_geometry module
 """
 
 class BaseGeometry:
     """
-    A base class representing geometric shapes.
-    
-    Attributes:
-        None
-
+    Base class for geometric shapes
+    Attributes: No attribute
     Methods:
-        area(self): Raises an exception since area calculation is not implemented.
-        integer_validator(self, name, value): Validates that the value is a positive integer.
+        area(self): Raises an exception if not implemented
+        integer_validator(self, name, value): Will Validate that the value
+        is positive integer
     """
 
     def area(self):
         """
-        Calculate the area of the geometric shape.
+        Area of the geometric shape
 
         Raises:
-            Exception: This method should be implemented in the subclass.
+            Exception: if not implemented in the subclass
         """
         raise Exception("area() is not implemented")
 
     def integer_validator(self, name, value):
         """
-        Validate that the value is a positive integer.
-
+        Validating positive integer
         Args:
-            name (str): The name of the value being validated.
-            value (int): The value to be validated.
-
+            name (str): The name
+            value (int): The value
         Raises:
-            TypeError: If the value is not an integer.
-            ValueError: If the value is less than or equal to 0.
+            TypeError: Value fails to be an integer
+            ValueError: Value is less than or equal to 0
         """
+        
         if type(value) is not int:
             raise TypeError(f"{name} must be an integer")
+        
         if value <= 0:
             raise ValueError(f"{name} must be greater than 0")
-
+        
 class Rectangle(BaseGeometry):
     """
-    A class representing rectangles.
-
+    Class showing rectangles
     Attributes:
-        __width (int): The width of the rectangle.
-        __height (int): The height of the rectangle.
-
+        __width (int): The width
+        __height (int): The height
     Methods:
-        __init__(self, width, height): Initializes a Rectangle instance with the given width and height.
+        __init__(self, width, height): Initializes a Rectangle (instance with width and height).
     """
 
     def __init__(self, width, height):
         """
-        Initializes a Rectangle instance with the given width and height.
-
+        Initializes the Rectangle instance
         Args:
-            width (int): The width of the rectangle.
-            height (int): The height of the rectangle.
-
+            width (int): The width
+            height (int): The height
         Raises:
-            TypeError: If the width or height is not an integer.
-            ValueError: If the width or height is less than or equal to 0.
+            TypeError: If args is not an integer.
+            ValueError: If args is less than or equal to 0.
         """
         self.integer_validator("width", width)
         self.integer_validator("height", height)
