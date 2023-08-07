@@ -7,5 +7,6 @@ class BaseGeometry:
     """
     BaseGeometry - empty class
     """
-    pass
-  
+    def custom_method(self):
+        return "This is a custom method in BaseGeometry"
+bg = BaseGeometry()
