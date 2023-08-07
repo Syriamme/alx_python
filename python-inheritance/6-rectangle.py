@@ -58,9 +58,9 @@ class Rectangle(BaseGeometry):
             TypeError: If args is not an integer.
             ValueError: If args is less than or equal to 0.
         """
-        self.__width = width
-        self.__height = height
         self.integer_validator("width", width)
         self.integer_validator("height", height)
+        self.__width = width
+        self.__height = height
         
         print(issubclass(Rectangle, BaseGeometry))
