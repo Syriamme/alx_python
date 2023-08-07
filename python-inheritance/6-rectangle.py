@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 """
-Module containing a class Rectangle.
-Rectangle is a subclass of BaseGeometry.
+Module with a class Rectangle.
+Rectangle being the subclass.
 """
 
 
