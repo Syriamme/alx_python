@@ -1,21 +1,20 @@
 """
 Module for inheritance checking.
-The module provides a function to check, if an object is an instance of a class
-that inherited from the class.
+
 """
 
 
 def inherits_from(obj, a_class):
 
     """
-    function to check if the object is an instance of
+    Checking if the object is an instance of
     a class inherited from the class.
     Params:
-    - obj: The object beinf checked.
-    - a_class: check inheritance against.
+    - obj: The object 
+    - a_class: The class
     Returns:
     True,
-    if obj is an instance of a class that inherited from the class.
+    if obj is an instance
     Otherwise False.
     """
-    return issubclass(type(obj), a_class) and type(obj) != a_class
+    return issubclass(type(obj), a_class) and type(obj) is not a_class
