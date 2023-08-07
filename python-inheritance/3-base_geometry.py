@@ -7,6 +7,5 @@ class BaseGeometry:
     """
     BaseGeometry - empty class
     """
-    def __str__(self):
-        return "BaseGeometry"
-    
+    pass
+  
