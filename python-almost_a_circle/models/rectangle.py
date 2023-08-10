@@ -1,9 +1,9 @@
 """
 The module for rectangle class
 """
-base = __import__('base.py').base
+Base = __import__('base.py').Base
 
-class Rectangle(base):
+class Rectangle(Base):
     """
     Rectangle class that is inheriting from Base Class
     Attr:
