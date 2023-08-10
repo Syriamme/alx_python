@@ -1,11 +1,12 @@
-from models.base import Base
-
 """
+models.base
 The module has defined the base class
 """
 class Base:
     """
     private class attribute that keeps the number of objects created
+    Attr: __nb__objects (int): private class
+    id(int): public instance attribute 
     """
     __nb__objects = 0
     def __init__(self, id=None):
