@@ -1,4 +1,7 @@
 from models.base import Base
+"""
+The module for rectangle class
+"""
 
 class Rectangle(Base):
     """
@@ -24,4 +27,3 @@ class Rectangle(Base):
         self.width = width
         self.y = y
         self.x = x
-        
