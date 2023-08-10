@@ -1,7 +1,7 @@
-from models.base import Base
 """
 The module for rectangle class
 """
+Rectangle = __import__('base.py').base
 
 class Rectangle(Base):
     """
