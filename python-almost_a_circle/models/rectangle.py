@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 """
 Module defining the Rectangle derived class
 """
