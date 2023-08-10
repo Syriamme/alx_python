@@ -1,21 +1,21 @@
-#!/usr/bin/python3
-
 """
-Module to define the class Square
+Module defining the square class
 """
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
     """
-    class Square inherits from Rectangle
-    Rectangle is a class in the models module
+    Class square that is inheriting from the Rectangle
     """
     def __init__(self, size, x=0, y=0, id=None):
         super().__init__(size, size, x, y, id)
 
+
     def __str__(self):
-        """Modifies the inbuilt method init"""
+        """
+        modifying the inbuilt method
+        """
         return "[{:s}] ({:d}) {:d}/{:d} - {:d}".format(
             self.__class__.__name__, self.id, self.x, self.y,
             self.width)
@@ -23,6 +23,7 @@ class Square(Rectangle):
     @property
     def size(self):
         return self.width
+    
 
     @size.setter
     def size(self, value):
@@ -31,10 +32,10 @@ class Square(Rectangle):
 
     def update(self, *args, **kwargs):
         """
-        Function to update the attributes of square
+        updating attribute size
 
-        If args: set attributes in this order: id, width, height, x, y
-        If no args given: set attributes according to kwargs
+        If no args : set attributes with kwargs
+        If args: width, height, x, y
         """
         if args:
             for key, value in enumerate(args):
@@ -58,7 +59,7 @@ class Square(Rectangle):
 
     def to_dictionary(self):
         """
-        Returns the dictionary definition of a square
+        The dictionary definition
         """
         return {
             "id": self.id,
