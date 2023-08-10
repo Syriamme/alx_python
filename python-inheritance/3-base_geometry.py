@@ -7,5 +7,7 @@ class BaseGeometry:
     """
     BaseGeometry - empty class
     """
-    pass
+    
+    def __repr__(self):
+        return "BaseGeometry()"
   
