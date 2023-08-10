@@ -1,29 +1,24 @@
 #!/usr/bin/python3
 
 """
-The module defining the square
+Module to define the class Square
 """
-
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
     """
-    A derived class inherited from Rectangle class
+    class Square inherits from Rectangle
+    Rectangle is a class in the models module
     """
-
     def __init__(self, size, x=0, y=0, id=None):
         super().__init__(size, size, x, y, id)
 
-
     def __str__(self):
-        """
-        Modifying the inbuilt
-        """
+        """Modifies the inbuilt method init"""
         return "[{:s}] ({:d}) {:d}/{:d} - {:d}".format(
             self.__class__.__name__, self.id, self.x, self.y,
             self.width)
-
 
     @property
     def size(self):
@@ -31,18 +26,15 @@ class Square(Rectangle):
 
     @size.setter
     def size(self, value):
-        if type(value) is not int:
-            raise TypeError("size must be an integer")
-        elif value <= 0:
-            raise ValueError("size must be > 0")
-        self.height = value
         self.width = value
+        self.height = value
 
     def update(self, *args, **kwargs):
         """
-        Updating the square attributes
-        If no args: Attributes should be set with kwargs
-        If args: attributes should be: id, width, height, x, y (in that order)
+        Function to update the attributes of square
+
+        If args: set attributes in this order: id, width, height, x, y
+        If no args given: set attributes according to kwargs
         """
         if args:
             for key, value in enumerate(args):
@@ -64,10 +56,9 @@ class Square(Rectangle):
             if "y" in kwargs:
                 self.y = kwargs["y"]
 
-
     def to_dictionary(self):
         """
-        Returning the dictionary definition
+        Returns the dictionary definition of a square
         """
         return {
             "id": self.id,
@@ -75,3 +66,4 @@ class Square(Rectangle):
             "x": self.x,
             "y": self.y,
         }
+    
