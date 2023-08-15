@@ -1,20 +1,26 @@
 #!/usr/bin/env python3
+
 """
-This module fetches the content from https://alu-intranet.hbtn.io/status
-and prints the body response in a specific format.
+The module will fetch resources from https://alu-intranet.hbtn.io/status
+and will print the body response in a certain format.
 """
+
 
 import requests
 
 def fetch_status():
     """
-    Fetches the content from the given URL and prints the type and content
-    of the response.
+    -Fetches the resources from URL specified
+    -print (type and content) of the http response
     """
+
     url = "https://alu-intranet.hbtn.io/status"
     response = requests.get(url)
+    
     print("Body response:")
+
     print("\t- type:", type(response.text))
+
     print("\t- content:", response.text)
 
 if __name__ == "__main__":
