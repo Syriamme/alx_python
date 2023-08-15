@@ -19,9 +19,9 @@ def fetch_github_id(username, token):
     response = requests.get(url, auth=(username, token))
 
     if response.status_code == 200:
-        print(response.json()['id'])
-    elif response.status_code == 401:
-        print("Authentication failed.", file=sys.stderr)
+        print(response.json().get('id'))
+    else:
+        print("None")
 
 if __name__ == "__main__":
     username = sys.argv[1]
