@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 """
 This module takes in a letter and sends a POST request to http://0.0.0.0:5000/search_user
 with the letter as a parameter in the variable named 'q'. It then prints the response
