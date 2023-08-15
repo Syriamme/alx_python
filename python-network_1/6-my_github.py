@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """
-This module takes a GitHub username and personal access token as arguments, and
-uses the GitHub API to display the user's ID. Basic Authentication is used with
-the personal access token as the password.
+This module takes a GitHub username and personal access token as arguments and
+uses the GitHub API with Basic Authentication to display the user's ID.
 """
 
 import requests
@@ -10,7 +9,7 @@ import sys
 
 def fetch_github_id(username, token):
     """
-    Uses the GitHub API to fetch and print the user's ID, using Basic Authentication.
+    Fetches and prints the GitHub user's ID using Basic Authentication.
 
     Args:
         username (str): The GitHub username.
