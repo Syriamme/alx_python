@@ -20,10 +20,10 @@ def fetch_github_id(username, token):
 
     if response.status_code == 200:
         print(response.json()['id'])
-    else:
-        print("Error fetching user ID:", response.status_code)
+    elif response.status_code == 401:
+        print("Authentication failed.", file=sys.stderr)
 
 if __name__ == "__main__":
     username = sys.argv[1]
-    token = sys.argv[2]
+    token = sys.argv[2] # In this case, the token is used as the password
     fetch_github_id(username, token)
