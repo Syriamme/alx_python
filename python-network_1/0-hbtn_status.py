@@ -1,6 +1,12 @@
 import requests
 
 def fetch_and_display_status(url):
+    """
+    Fetches the given URL and displays the response body in a formatted way.
+    
+    Args:
+        url (str): The URL to fetch the status from.
+    """
     try:
         response = requests.get(url)
         response.raise_for_status()  # Raise an exception if there's an HTTP error
