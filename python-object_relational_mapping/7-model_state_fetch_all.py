@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-
-
 """
 Script to list all State objects from the database hbtn_0e_6_usa.
 """
@@ -10,15 +8,15 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from model_state import Base, State
 
-
 def list_states(username, password, db_name):
     """List all State objects from the database."""
     # Create a connection to the database
-    engine = create_engine(f'mysql+mysqldb://
-                           {username}:{password}@localhost:3306/{db_name}')
+    engine = create_engine(f'mysql+mysqldb://{username}:{password}@localhost:3306/{db_name}')
+    
     # Create a session
     Session = sessionmaker(bind=engine)
     session = Session()
+    
     # Query the State objects and sort by states.id
     states = session.query(State).order_by(State.id).all()
     
