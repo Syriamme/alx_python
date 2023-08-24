@@ -10,12 +10,13 @@ import sys
 import MySQLdb
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
+    if len(sys.argv) != 5:
         sys.exit(1)
 
     mysql_usname = sys.argv[1]
     mysql_pass = sys.argv[2]
     dbt_name = sys.argv[3]
+    state_name = sys.argv[4]
 
     db = MySQLdb.connect(
         host="localhost",
@@ -23,6 +24,8 @@ if __name__ == "__main__":
         user=mysql_usname,
         passwd=mysql_pass,
         db=dbt_name
+        
+        
     )
     cursor = db.cursor()
 
