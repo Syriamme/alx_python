@@ -25,11 +25,11 @@ if __name__ == "__main__":
     # Create a cursor
     cursor = db.cursor()
 
-    # Construct the query using format and user input
-    query = "SELECT * FROM states WHERE name LIKE '{}' ORDER BY id ASC".format(state_name)
+    # Construct the query using user input and format
+    query = "SELECT * FROM states WHERE BINARY name = %s ORDER BY id ASC"
 
     # Execute the query to retrieve matching states
-    cursor.execute(query)
+    cursor.execute(query, (state_name,))
 
     # Fetch the results
     results = cursor.fetchall()
