@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-A script that prevents SQL injection
+write one that is safe from MySQL injections!
 """
 
 import sys
