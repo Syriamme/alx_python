@@ -1,34 +1,36 @@
 #!/usr/bin/python3
 
-'''
-Script that prints the first State object from the database hbtn_0e_6_usa
-
-The script should take 3 arguments: mysql username,
-mysql password and database name
-'''
-
-from sys import argv
-from model_state import Base, State
+import sys
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
+from model_state import Base, State
 
 if __name__ == "__main__":
+    if len(sys.argv) != 4:
+        print("Usage: ./script.py mysql_username mysql_password database_name")
+        sys.exit(1)
 
-    # make engine for database
-    user = argv[1]
-    passwd = argv[2]
-    db = argv[3]
-    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'.
-                           format(user, passwd, db), pool_pre_ping=True)
+    username = sys.argv[1]
+    password = sys.argv[2]
+    db_name = sys.argv[3]
+
+    # Create an engine and connect to the MySQL server
+    engine = create_engine(f'mysql+mysqldb://{username}:{password}@localhost:3306/{db_name}')
+    
+    # Create a Session class, bound to this engine
     Session = sessionmaker(bind=engine)
+
+    # Create a session instance
     session = Session()
 
-    # query first python instance in database
-    first_instance = session.query(State).order_by(State.id).first()
-    if first_instance:
-        print("{:d}: {:s}".format(first_instance.id, first_instance.name))
+    # Query for the first state
+    state = session.query(State).order_by(State.id).first()
+
+    # Check if state exists, else print "Nothing"
+    if state:
+        print("{}: {}".format(state.id, state.name))
     else:
         print("Nothing")
 
+    # Close the session
     session.close()
