@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
-"""
-a script that takes in an argument and displays all values
-in the states table of hbtn_0e_0_usa
-where name matches the argument
-"""
 
 import sys
 import MySQLdb
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:
+        print("Usage: python script.py <mysql_username> <mysql_password> <db_name> <state_name>")
         sys.exit(1)
 
     mysql_username = sys.argv[1]
@@ -27,9 +23,9 @@ if __name__ == "__main__":
 
     cursor = db.cursor()
 
-    query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(state_name)
+    query = "SELECT * FROM states WHERE BINARY name = %s ORDER BY id ASC"
 
-    cursor.execute(query)
+    cursor.execute(query, (state_name,))
 
     results = cursor.fetchall()
 
