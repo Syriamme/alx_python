@@ -12,17 +12,16 @@ if __name__ == "__main__":
     if len(sys.argv) != 4:
         sys.exit(1)
 
-    mysql_usname = sys.argv[1]
-    mysql_pass = sys.argv[2]
-    db_nm = sys.argv[3]
-
+    mysql_username = sys.argv[1]
+    mysql_password = sys.argv[2]
+    db_name = sys.argv[3]
 
     db = MySQLdb.connect(
         host="localhost",
         port=3306,
-        user_name=mysql_usname,
-        password=mysql_pass,
-        dtname=db_nm
+        user=mysql_username,
+        passwd=mysql_password,
+        db=db_name
     )
     cursor = db.cursor()
 
