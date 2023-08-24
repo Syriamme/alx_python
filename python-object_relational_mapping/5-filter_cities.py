@@ -9,12 +9,10 @@ import sys
 import MySQLdb
 
 if __name__ == "__main__":
-    if len(sys.argv) != 5:
-        sys.exit(1)
 
     db = MySQLdb.connect(host="localhost",
-                         user=sys.argv[1],
-                         passwd=sys.argv[2],
+                         user_name=sys.argv[1],
+                         password=sys.argv[2],
                          db=sys.argv[3])
 
     cursor = db.cursor()
