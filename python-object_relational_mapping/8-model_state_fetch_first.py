@@ -16,16 +16,13 @@ if __name__ == "__main__":
     connecting_string = (f'mysql+mysqldb://{user}:{passwd}'
                          f'@localhost:3306/{db_nm}')
     engine = create_engine(connecting_string)
-    
     Session = sessionmaker(bind=engine)
 
     session = Session()
-    
     state = session.query(State).order_by(State.id).first()
 
     if state:
         print("{}: {}".format(state.id, state.name))
     else:
         print("Nothing")
-        
         session.close()
