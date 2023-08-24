@@ -21,11 +21,9 @@ if __name__ == "__main__":
                          f'@localhost:3306/{db_nm}')
     engine = create_engine(connecting_string)
     Session = sessionmaker(bind=engine)
-    
     session = Session()
     states_with_a = session.query(State).filter(State.name.contains('a')).order_by(State.id)
 
     for state in states_with_a:
         print("{}: {}".format(state.id, state.name))
-        
     session.close()
