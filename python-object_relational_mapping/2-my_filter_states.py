@@ -14,7 +14,6 @@ import MySQLdb
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:
-        print("Usage: python script.py <mysql_username> <mysql_password> <db_name> <state_name>")
         sys.exit(1)
 
     mysql_username = sys.argv[1]
@@ -35,7 +34,12 @@ if __name__ == "__main__":
     cursor = db.cursor()
 
     # Construct the query using user input and format
-    query = "SELECT * FROM states WHERE BINARY name = %s ORDER BY id ASC"
+    query = """
+    SELECT *
+    FROM states
+    WHERE BINARY name = %s
+    ORDER BY id ASC
+    """
 
     # Execute the query to retrieve matching states
     cursor.execute(query, (state_name,))
