@@ -1,47 +1,40 @@
 #!/usr/bin/python3
-""" List all cities from a state """
 
-import MySQLdb
+'''
+Script that takes in the name of a state as an argument
+and lists all cities of that state.
+
+The script should take 4 arguments: mysql username,
+mysql password, database name, and state name.
+'''
+
 import sys
+import MySQLdb
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:
         print("Usage: ./script.py mysql_username mysql_password database_name state_name")
         sys.exit(1)
 
-    username = sys.argv[1]
-    password = sys.argv[2]
-    db_name = sys.argv[3]
-    state_name = sys.argv[4]
-
-    # Connect to the MySQL server
-    db = MySQLdb.connect(host="localhost", 
-                          port=3306, 
-                          user=username, 
-                          passwd=password, 
-                          db=db_name)
+    # Establish a connection to the MySQL database
+    db = MySQLdb.connect(host="localhost",
+                         user=sys.argv[1],
+                         passwd=sys.argv[2],
+                         db=sys.argv[3])
 
     # Create a cursor object to execute SQL queries
     cursor = db.cursor()
 
-    # Query for all cities in the provided state
-    query = """
-        SELECT cities.id, cities.name
-        FROM cities
-        JOIN states ON cities.state_id = states.id
-        WHERE states.name = %s
-        ORDER BY cities.id ASC
-    """
-    cursor.execute(query, (state_name,))
+    # Fetch cities of the provided state
+    cursor.execute("""SELECT cities.id, cities.name, states.name
+                      FROM cities
+                      JOIN states ON cities.state_id = states.id
+                      WHERE states.name = %s
+                      ORDER BY cities.id ASC""", (sys.argv[4],))
 
-    # Fetch all the results
-    rows = cursor.fetchall()
-
-    if not rows:
-        print("No cities found for the state:", state_name)
-    else:
-        for row in rows:
-            print("{}: {}".format(row[0], row[1]))
+    # Fetch and format the results
+    cities = [city[1] for city in cursor.fetchall()]
+    print(", ".join(cities))
 
     # Close the cursor and the connection
     cursor.close()
