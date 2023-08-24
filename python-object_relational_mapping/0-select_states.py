@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
 
-"""
-a script that lists a states from the database htbn_0e_0_usa
-The script will take three arguments: username, password and name
-"""
-
 import sys
 import MySQLdb
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
-        print("Usage: python script.py <mysql_username> <mysql_password> <db_name>")
         sys.exit(1)
 
     mysql_username = sys.argv[1]
@@ -18,7 +12,13 @@ if __name__ == "__main__":
     db_name = sys.argv[3]
 
     # Connect to the database
-    db = MySQLdb.connect(host="localhost", port=3306, user=mysql_username, passwd=mysql_password, db=db_name)
+    db = MySQLdb.connect(
+        host="localhost",
+        port=3306,
+        user=mysql_username,
+        passwd=mysql_password,
+        db=db_name
+    )
 
     # Create a cursor
     cursor = db.cursor()
