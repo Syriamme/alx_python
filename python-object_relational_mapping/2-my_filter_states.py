@@ -30,7 +30,7 @@ if __name__ == "__main__":
     SELECT *
     FROM states
     WHERE name LIKE %s
-    ORDER BY id ASC"
+    ORDER BY id ASC
     """
 
     cursor.execute(query)
