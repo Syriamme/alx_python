@@ -1,43 +1,46 @@
-#!/usr/bin/python3
-
-"""
-write one that is safe from MySQL injections!
-"""
+#!/usr/bin/env python3
 
 import sys
 import MySQLdb
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:
+        print("Usage: python script.py <mysql_username> <mysql_password> <db_name> <state_name>")
         sys.exit(1)
 
-    mysql_usnm = sys.argv[1]
-    mysql_pass = sys.argv[2]
-    db_nm = sys.argv[3]
-    ste_nm = sys.argv[4]
+    mysql_username = sys.argv[1]
+    mysql_password = sys.argv[2]
+    db_name = sys.argv[3]
+    state_name = sys.argv[4]
 
+    # Connect to the database
     db = MySQLdb.connect(
         host="localhost",
         port=3306,
-        user=mysql_usnm,
-        passwd=mysql_pass,
-        db=db_nm
+        user=mysql_username,
+        passwd=mysql_password,
+        db=db_name
     )
 
+    # Create a cursor
     cursor = db.cursor()
 
+    # Construct the query using a parameterized query
     query = ("SELECT cities.id, cities.name "
              "FROM cities JOIN states ON cities.state_id = states.id "
              "WHERE states.name = %s "
              "ORDER BY cities.id ASC")
 
-    cursor.execute(query, (ste_nm,))
+    # Execute the query to retrieve city names of the specified state
+    cursor.execute(query, (state_name,))
 
-
+    # Fetch the results
     results = cursor.fetchall()
 
+    # Print the results
     for row in results:
         print(row)
 
+    # Close the cursor and the connection
     cursor.close()
     db.close()
