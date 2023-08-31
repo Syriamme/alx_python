@@ -1,5 +1,8 @@
 """
-
+a new script that starts a Flask web application
+Routes:
+/: display “Hello HBNB!”
+/hbnb: display “HBNB”
 """
 from flask import Flask
 
