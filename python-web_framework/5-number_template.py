@@ -2,6 +2,7 @@
 A script that starts a Flask web application
 """
 
+
 from flask import Flask, render_template
 from flask import escape
 
@@ -35,7 +36,7 @@ def display_number_template(n):
     if isinstance(n, int):
         return render_template('number_template.html', number=n)
     else:
-        return "Not a valid number"
+        return ""
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
