@@ -14,13 +14,13 @@ if __name__ == "__main__":
     if len(sys.argv) != 4:
         sys.exit(1)
 
-    username = sys.argv[1]
-    password = sys.argv[2]
-    db_name = sys.argv[3]
+    usnm = sys.argv[1]
+    passwd = sys.argv[2]
+    db_nm = sys.argv[3]
 
-    connection_string = (f'mysql+mysqldb://{username}:{password}'
-                         f'@localhost:3306/{db_name}')
-    engine = create_engine(connection_string)
+    connecting_string = (f'mysql+mysqldb://{usnm}:{passwd}'
+                         f'@localhost:3306/{db_nm}')
+    engine = create_engine(connecting_string)
 
     Session = sessionmaker(bind=engine)
 
