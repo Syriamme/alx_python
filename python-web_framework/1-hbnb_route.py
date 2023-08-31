@@ -4,6 +4,8 @@ Routes:
 /: display “Hello HBNB!”
 /hbnb: display “HBNB”
 """
+
+
 from flask import Flask
 
 app = Flask(__name__)
