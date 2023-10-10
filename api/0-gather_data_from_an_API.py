@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-import urllib.request
 import json
+import urllib.error
+import urllib.request
 
 def get_employee_todo_progress(employee_id):
     base_url = "https://jsonplaceholder.typicode.com"
