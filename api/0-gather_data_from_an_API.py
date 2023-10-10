@@ -32,7 +32,7 @@ def get_employee_todo_progress(employee_id):
 
         for task in todo_data:
             if task["completed"]:
-                print(f"\t{task['title']}")
+                print(f"\t {task['title']}")
     
     except urllib.error.URLError as e:
         print(f"Error: {e}")
