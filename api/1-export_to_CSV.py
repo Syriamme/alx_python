@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 import csv
 import json
 import sys
@@ -11,7 +12,6 @@ def get_employee_todo_progress(employee_id):
     todo_url = f"{base_url}/todos?userId={employee_id}"
 
     try:
-        # Fetch employee details
         with urllib.request.urlopen(employee_url) as response:
             if response.getcode() == 200:
                 employee_data = json.loads(response.read().decode())
@@ -27,7 +27,6 @@ def get_employee_todo_progress(employee_id):
                 print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
                 return
 
-        # Create and write to a CSV file
         csv_filename = f"{employee_id}.csv"
         with open(csv_filename, mode='w', newline='') as csv_file:
             csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_MINIMAL)
