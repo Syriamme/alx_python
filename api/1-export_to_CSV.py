@@ -29,14 +29,19 @@ def get_employee_todo_progress(employee_id):
         total_tasks = len(todo_data)
         completed_tasks = sum(1 for task in todo_data if task['completed'])
 
-        print(f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):")
+        print(f"Employee {employee_name} is done with tasks ({completed_tasks}/{total_tasks}):")
 
-        with open(f"{employee_id}.csv", 'w', newline='') as csvfile:
-            csv_writer = csv.writer(csvfile)
+        # Create a CSV file and write the data to it
+        csv_filename = f"{employee_id}.csv"
+        with open(csv_filename, mode='w', newline='') as csv_file:
+            csv_writer = csv.writer(csv_file)
             csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
+            
             for task in todo_data:
-                csv_writer.writerow([employee_id, employee_name, str(task['completed']), task['title']])
-    
+                csv_writer.writerow([employee_id, employee_name, task['completed'], task['title']])
+        
+        print(f"Data exported to {csv_filename}.")
+
     except urllib.error.URLError as e:
         print(f"Error: {e}")
 
