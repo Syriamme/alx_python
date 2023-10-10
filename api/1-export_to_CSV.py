@@ -27,17 +27,17 @@ def get_employee_todo_progress(employee_id):
                 print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
                 return
 
-        csv_file_name = f"{employee_id}.csv"
-
-        with open(csv_file_name, mode='w', newline='') as csv_file:
+        # Create and write to a CSV file
+        csv_filename = f"{employee_id}.csv"
+        with open(csv_filename, mode='w', newline='') as csv_file:
             csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_MINIMAL)
             csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
-
+            
             for task in todo_data:
-                if task['userId'] == employee_id:
-                    csv_writer.writerow([employee_id, employee_name, str(task['completed']), task['title']])
-
-        print(f"Data has been exported to {csv_file_name}")
+                completed_status = "True" if task["completed"] else "False"
+                csv_writer.writerow([employee_id, employee_name, completed_status, task["title"]])
+        
+        print(f"Data exported to {csv_filename}")
 
     except urllib.error.URLError as e:
         print(f"Error: {e}")
