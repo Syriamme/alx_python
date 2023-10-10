@@ -14,7 +14,7 @@ def get_employee_todo_progress(employee_id):
         with urllib.request.urlopen(employee_url) as response:
             if response.getcode() == 200:
                 employee_data = json.loads(response.read().decode())
-                employee_name = employee_data["name"]
+                employee_name = employee_data["username"]  # Use "username" instead of "name"
             else:
                 print(f"Error: Unable to fetch employee details. Status Code: {response.getcode()}")
                 return
@@ -26,17 +26,12 @@ def get_employee_todo_progress(employee_id):
                 print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
                 return
 
-        total_tasks = len(todo_data)
-        completed_tasks = sum(1 for task in todo_data if task['completed'])
-
-        print(f"Employee {employee_name} is done with tasks ({completed_tasks}/{total_tasks}):")
-
         # Create a CSV file and write the data to it
         csv_filename = f"{employee_id}.csv"
         with open(csv_filename, mode='w', newline='') as csv_file:
             csv_writer = csv.writer(csv_file)
             csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
-            
+
             for task in todo_data:
                 csv_writer.writerow([employee_id, employee_name, task['completed'], task['title']])
         
