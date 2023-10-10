@@ -36,9 +36,11 @@ def get_employee_todo_progress(employee_id):
                 csv_writer.writerow([employee_id, employee_name, task['completed'], task['title']])
         
         print(f"Data exported to {csv_filename}.")
+        return len(todo_data)  # Return the number of tasks
 
     except urllib.error.URLError as e:
         print(f"Error: {e}")
+        return None
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -47,6 +49,8 @@ if __name__ == "__main__":
 
     try:
         employee_id = int(sys.argv[1])
-        get_employee_todo_progress(employee_id)
+        num_tasks = get_employee_todo_progress(employee_id)
+        if num_tasks is not None:
+            print(f"Number of tasks in CSV: {num_tasks}")  # Print the number of tasks
     except ValueError:
         print("Please enter a valid integer for the employee ID.")
