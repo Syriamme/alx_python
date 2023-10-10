@@ -1,37 +1,29 @@
 #!/usr/bin/python3
-    """Exports employee TODO progress to a JSON file.
 
-    Args:
-        employee_id: The ID of the employee.
-        filename: The filename of the JSON file.
-    """
 import json
 import sys
 import urllib.request
 
 def export_employee_todo_progress_to_json(employee_id, filename):
-    """Exports employee TODO progress to a JSON file.
+    """
+    Exports employee TODO progress to a JSON file.
 
     Args:
-        employee_id: The ID of the employee.
-        filename: The filename of the JSON file.
+        employee_id (int): The ID of the employee.
+        filename (str): The filename of the JSON file.
     """
-
-    data = {"USER_ID": []}
-
     employee_name = get_employee_name(employee_id)
     todo_data = get_employee_todo_data(employee_id)
 
-    for task in todo_data:
-        task_entry = {
-            "task": task["title"],
-            "completed": task["completed"],
-            "username": employee_name
-        }
-        data["USER_ID"].append(task_entry)
+    data_to_export = {
+        "USER_ID": [
+            {"task": task["title"], "completed": task["completed"], "username": employee_name}
+            for task in todo_data
+        ]
+    }
 
     with open(filename, "w") as json_file:
-        json.dump(data, json_file, indent=4)
+        json.dump(data_to_export, json_file, indent=4)
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -40,6 +32,7 @@ if __name__ == "__main__":
 
     try:
         employee_id = int(sys.argv[1])
-        export_employee_todo_progress_to_json(employee_id, f"{employee_id}.json")
+        filename = f"{employee_id}.json"
+        export_employee_todo_progress_to_json(employee_id, filename)
     except ValueError:
         print("Please enter a valid integer for the employee ID.")
