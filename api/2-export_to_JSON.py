@@ -29,7 +29,6 @@ Dependencies:
     - urllib.request: For making HTTP requests to the external API.
 """
 
-import csv
 import json
 import sys
 import urllib.request
@@ -69,6 +68,12 @@ def get_employee_todo_progress(employee_id):
         # Export data to JSON file as a list
         with open(f"{employee_id}.json", "w") as json_file:
             json.dump(tasks, json_file, indent=4)
+
+        print(f"Employee {employee_name} is done with tasks({len(tasks)}):")
+
+        for task in tasks:
+            if task["completed"]:
+                print(f"\t {task['task']}")
 
     except urllib.error.URLError as e:
         print(f"Error: {e}")
