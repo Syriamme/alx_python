@@ -9,7 +9,7 @@ Usage:
     python employee_todo_progress.py <employee_id>
 
 Arguments:
-    - <employee_id>: The ID of the employee whose tasks need to be recorded.
+    - <employee_id>: The ID of the employee whgose tasks need to be recorded.
 
 Example Usage:
     python employee_todo_progress.py 1
@@ -29,6 +29,7 @@ Dependencies:
     - urllib.request: For making HTTP requests to the external API.
 """
 
+import csv
 import json
 import sys
 import urllib.request
@@ -39,6 +40,7 @@ def get_employee_todo_progress(employee_id):
     todo_url = f"{base_url}/todos?userId={employee_id}"
 
     try:
+        # Fetch employee details
         with urllib.request.urlopen(employee_url) as response:
             if response.getcode() == 200:
                 employee_data = json.loads(response.read().decode())
@@ -60,20 +62,12 @@ def get_employee_todo_progress(employee_id):
                 "task": task['title'],
                 "completed": task['completed'],
                 "username": employee_name
-            })
-
+                })
+        
         with open(f"{employee_id}.json", "w") as json_file:
             json.dump({str(employee_id): tasks}, json_file, indent=4)
 
-        total_tasks = len(todo_data)
-        completed_tasks = sum(1 for task in todo_data if task['completed'])
 
-        print(f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):")
-
-        for task in todo_data:
-            if task["completed"]:
-                print(f"\t {task['title']}")
-    
     except urllib.error.URLError as e:
         print(f"Error: {e}")
 
