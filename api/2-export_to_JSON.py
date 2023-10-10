@@ -65,15 +65,11 @@ def get_employee_todo_progress(employee_id):
             }
             tasks.append(task_info)
 
-        # Export data to JSON file as a list
+        # Export data to JSON file as a dictionary with USER_ID and the list of tasks
+        result_data = {str(employee_id): tasks}
+
         with open(f"{employee_id}.json", "w") as json_file:
-            json.dump(tasks, json_file, indent=4)
-
-        print(f"Employee {employee_name} is done with tasks({len(tasks)}):")
-
-        for task in tasks:
-            if task["completed"]:
-                print(f"\t {task['task']}")
+            json.dump(result_data, json_file, indent=4)
 
     except urllib.error.URLError as e:
         print(f"Error: {e}")
