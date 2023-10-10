@@ -37,7 +37,6 @@ def get_employee_todo_progress(employee_id):
             if task['completed']:
                 print(f"\t{task['title']}")
 
-
     except urllib.error.URLError as e:
         print(f"Error: {e}")
 
