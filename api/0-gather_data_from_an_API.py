@@ -1,66 +1,49 @@
-"""
-This script retrieves and displays information on an employee's TODO list
-using REST API. It accepts employee ID as a param and provides details
-about the employee's completed tasks alongside their titles.
+#!/usr/bin/python3
 
-Usage: 0-gather_data_from_an_API.py <employee_id>
-"""
+import json
+import sys
+import urllib.request
 
-import requests  # Responsible for making HTML requests
-import sys       # Handles CL args
-
-
-def get_employee_info(employee_id):
-    """
-    Retrieve & display an employee's TODO list progress
-
-    Args:
-        employee_id(int): The employee's ID
-
-    Returns:
-        None
-    """
-
-    # Define the base URL for the API
+def get_employee_todo_progress(employee_id):
     base_url = "https://jsonplaceholder.typicode.com"
+    employee_url = f"{base_url}/users/{employee_id}"
+    todo_url = f"{base_url}/todos?userId={employee_id}"
 
-    # Send a GET request to retrieve employee details
-    employee_response = requests.get(f"{base_url}/users/{employee_id}")
+    try:
+        with urllib.request.urlopen(employee_url) as response:
+            if response.getcode() == 200:
+                employee_data = json.loads(response.read().decode())
+                employee_name = employee_data["name"]
+            else:
+                print(f"Error: Unable to fetch employee details. Status Code: {response.getcode()}")
+                return
+        
+        with urllib.request.urlopen(todo_url) as response:
+            if response.getcode() == 200:
+                todo_data = json.loads(response.read().decode())
+            else:
+                print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
+                return
 
-    # Check if the request was successful
-    if employee_response.status_code != 200:
-        print("Missing Employee Details")
-        return
+        total_tasks = len(todo_data)
+        completed_tasks = sum(1 for task in todo_data if task['completed'])
 
-    employee_data = employee_response.json()
-    employee_name = employee_data["name"]
-
-    # Send a GET request to retrieve the employee TODO list details
-    todos_response = requests.get(f"{base_url}/users/{employee_id}/todos")
-
-    # Check if the request is successful
-    if todos_response.status_code != 200:
-        print("Missing TODO List")
-        return
-
-    todos_data = todos_response.json()
-
-    # Enumerate the number of completed and total tasks
-    total_tasks = len(todos_data)
-    completed_tasks = sum(1 for todo in todos_data if todo["completed"])
-
-    # Display employee details and task titles
-    print(f"Employee {employee_name} is done with "
-          f"{completed_tasks}/{total_tasks} tasks:")
-    for todo in todos_data:
-        if todo["completed"]:
-            print(f"\t{todo['title']}")
-
+        print(f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):")
+        
+        for task in todo_data:
+            if task["completed"]:
+                print(f"\t{task['title']}")
+    
+    except urllib.error.URLError as e:
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("0-gather_data_from_an_API.py <employee_id>")
+        print("Usage: python script.py <employee_id>")
         sys.exit(1)
 
-    employee_id = int(sys.argv[1])
-    get_employee_info(employee_id)
+    try:
+        employee_id = int(sys.argv[1])
+        get_employee_todo_progress(employee_id)
+    except ValueError:
+        print("Please enter a valid integer for the employee ID.")
