@@ -1,5 +1,10 @@
 #!/usr/bin/python3
+    """Exports employee TODO progress to a JSON file.
 
+    Args:
+        employee_id: The ID of the employee.
+        filename: The filename of the JSON file.
+    """
 import json
 import sys
 import urllib.request
