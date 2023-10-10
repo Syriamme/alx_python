@@ -29,11 +29,10 @@ def get_employee_todo_progress(employee_id):
         completed_tasks = sum(1 for task in todo_data if task['completed'])
 
         print(f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):")
-        
-        for task in todo_data:
-            if task["completed"]:
-                print(f"\t{task['title']}")
-    
+        completed_task_titles = [task['title'] for task in todo_data if task['completed']]
+        for title in completed_task_titles:
+            print(f"\t{title}")
+
     except urllib.error.URLError as e:
         print(f"Error: {e}")
 
