@@ -33,7 +33,6 @@ def get_employee_todo_progress(employee_id):
             for task in todo_data:
                 completed_status = "True" if task["completed"] else "False"
                 csv_writer.writerow([employee_id, employee_name, completed_status, task["title"]])
-
     except urllib.error.URLError as e:
         print(f"Error: {e}")
 
