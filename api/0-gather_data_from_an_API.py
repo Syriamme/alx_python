@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import json
+import sys
 import urllib.request
 
 def get_employee_todo_progress(employee_id):
@@ -36,8 +37,12 @@ def get_employee_todo_progress(employee_id):
         print(f"Error: {e}")
 
 if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python script.py <employee_id>")
+        sys.exit(1)
+
     try:
-        employee_id = int(input("Enter the employee ID: "))
+        employee_id = int(sys.argv[1])
         get_employee_todo_progress(employee_id)
     except ValueError:
         print("Please enter a valid integer for the employee ID.")
