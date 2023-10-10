@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-#!/usr/bin/python3
-
 import csv
 import json
 import sys
@@ -31,12 +29,10 @@ def get_employee_todo_progress(employee_id):
 
         csv_filename = f"{employee_id}.csv"
         with open(csv_filename, mode='w', newline='') as csv_file:
-            csv_writer = csv.writer(csv_file)
+            csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
             for task in todo_data:
                 completed_status = "True" if task["completed"] else "False"
-                csv_writer.writerow([str(employee_id), employee_name, completed_status, task["title"]])
-
-        print(f"Data exported to {csv_filename}")
+                csv_writer.writerow([employee_id, employee_name, completed_status, task["title"]])
 
     except urllib.error.URLError as e:
         print(f"Error: {e}")
