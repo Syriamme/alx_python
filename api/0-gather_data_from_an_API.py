@@ -14,20 +14,20 @@ def get_employee_todo_progress(employee_id):
             if response.getcode() == 200:
                 employee_data = json.loads(response.read().decode())
             else:
-                print(f"[Got]\nFirst line formatting: Incorrect\n\n({len(employee_data['name'])} chars long)")
+                print(f"Error: Unable to fetch employee details. Status Code: {response.getcode()}")
                 return
         
         with urllib.request.urlopen(todo_url) as response:
             if response.getcode() == 200:
                 todo_data = json.loads(response.read().decode())
             else:
-                print(f"[Got]\nFirst line formatting: Incorrect\n\n({len(employee_data['name'])} chars long)")
+                print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
                 return
 
         total_tasks = len(todo_data)
         completed_tasks = sum(1 for task in todo_data if task['completed'])
 
-        print(f"[Expected]\nFirst line formatting: OK\n\n({len(employee_data['name'])} chars long)")
+        print(f"Employee {employee_data['name']} is done with tasks ({completed_tasks}/{total_tasks}):")
         
         for task in todo_data:
             if task['completed']:
