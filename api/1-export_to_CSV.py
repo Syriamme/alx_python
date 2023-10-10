@@ -11,10 +11,11 @@ def get_employee_todo_progress(employee_id):
     todo_url = f"{base_url}/todos?userId={employee_id}"
 
     try:
+        # Fetch employee details
         with urllib.request.urlopen(employee_url) as response:
             if response.getcode() == 200:
                 employee_data = json.loads(response.read().decode())
-                employee_name = employee_data["username"]  # Use "username" instead of "name"
+                employee_name = employee_data["username"]
             else:
                 print(f"Error: Unable to fetch employee details. Status Code: {response.getcode()}")
                 return
@@ -26,21 +27,19 @@ def get_employee_todo_progress(employee_id):
                 print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
                 return
 
-        # Create a CSV file and write the data to it
-        csv_filename = f"{employee_id}.csv"
-        with open(csv_filename, mode='w', newline='') as csv_file:
-            csv_writer = csv.writer(csv_file)
+        csv_file_name = f"{employee_id}.csv"
+
+        with open(csv_file_name, mode='w', newline='') as csv_file:
+            csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_MINIMAL)
             csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
 
             for task in todo_data:
-                csv_writer.writerow([employee_id, employee_name, task['completed'], task['title']])
-        
-        print(f"Data exported to {csv_filename}.")
-        return len(todo_data)  # Return the number of tasks
+                csv_writer.writerow([employee_id, employee_name, str(task['completed']), task['title']])
+
+        print(f"Data has been exported to {csv_file_name}")
 
     except urllib.error.URLError as e:
         print(f"Error: {e}")
-        return None
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -49,8 +48,6 @@ if __name__ == "__main__":
 
     try:
         employee_id = int(sys.argv[1])
-        num_tasks = get_employee_todo_progress(employee_id)
-        if num_tasks is not None:
-            print(f"Number of tasks in CSV: {num_tasks}")  # Print the number of tasks
+        get_employee_todo_progress(employee_id)
     except ValueError:
         print("Please enter a valid integer for the employee ID.")
