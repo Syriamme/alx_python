@@ -31,12 +31,12 @@ def get_employee_todo_progress(employee_id):
             if task['completed']:
                 completed_tasks += 1
         
-        print(f"Employee {employee_name} is done with "
-              f"{completed_tasks}/{total_tasks} tasks:")
+        progress_line = f"Employee {employee_data['name']} is done with tasks ({completed_tasks}/{total_tasks}):"
+        print(progress_line)
         
-        for todo in todos_data:
-            if todo["completed"]:
-                print(f"\t{todo['title']}")
+        for task in todo_data:
+            if task['completed']:
+                print(f"\t{task['title']}")
 
     except urllib.error.URLError as e:
         print(f"Error: {e}")
