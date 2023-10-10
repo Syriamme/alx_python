@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+#!/usr/bin/python3
 
 import csv
 import json
@@ -28,16 +29,13 @@ def get_employee_todo_progress(employee_id):
                 print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
                 return
 
-        # Create and write to a CSV file
         csv_filename = f"{employee_id}.csv"
         with open(csv_filename, mode='w', newline='') as csv_file:
-            csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_MINIMAL)
-            csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
-            
+            csv_writer = csv.writer(csv_file)
             for task in todo_data:
                 completed_status = "True" if task["completed"] else "False"
-                csv_writer.writerow([employee_id, employee_name, completed_status, task["title"]])
-        
+                csv_writer.writerow([f'{employee_id}', f'{employee_name}', f'{completed_status}', f'{task["title"]}'])
+
         print(f"Data exported to {csv_filename}")
 
     except urllib.error.URLError as e:

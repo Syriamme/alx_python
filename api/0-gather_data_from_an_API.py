@@ -4,38 +4,23 @@ import json
 import sys
 import urllib.request
 
-def get_employee_todo_progress(employee_id):
-    base_url = "https://jsonplaceholder.typicode.com"
-    employee_url = f"{base_url}/users/{employee_id}"
-    todo_url = f"{base_url}/todos?userId={employee_id}"
+def export_employee_todo_progress_to_csv(employee_id, filename):
+  """Exports employee TODO progress to a CSV file.
 
-    try:
-        with urllib.request.urlopen(employee_url) as response:
-            if response.getcode() == 200:
-                employee_data = json.loads(response.read().decode())
-                employee_name = employee_data["name"]
-            else:
-                print(f"Error: Unable to fetch employee details. Status Code: {response.getcode()}")
-                return
+  Args:
+    employee_id: The ID of the employee.
+    filename: The filename of the CSV file.
+  """
 
-        with urllib.request.urlopen(todo_url) as response:
-            if response.getcode() == 200:
-                todo_data = json.loads(response.read().decode())
-            else:
-                print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
-                return
+  with open(filename, "w", newline="") as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
 
-        total_tasks = len(todo_data)
-        completed_tasks = sum(1 for task in todo_data if task['completed'])
+    employee_name = get_employee_name(employee_id)
+    todo_data = get_employee_todo_data(employee_id)
 
-        print(f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):")
-
-        for task in todo_data:
-            if task["completed"]:
-                print(f"\t {task['title']}")
-    
-    except urllib.error.URLError as e:
-        print(f"Error: {e}")
+    for task in todo_data:
+      writer.writerow([employee_id, employee_name, task["completed"], task["title"]])
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
