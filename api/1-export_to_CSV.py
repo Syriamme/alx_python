@@ -34,7 +34,8 @@ def get_employee_todo_progress(employee_id):
             csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
 
             for task in todo_data:
-                csv_writer.writerow([employee_id, employee_name, str(task['completed']), task['title']])
+                if task['userId'] == employee_id:
+                    csv_writer.writerow([employee_id, employee_name, str(task['completed']), task['title']])
 
         print(f"Data has been exported to {csv_file_name}")
 
