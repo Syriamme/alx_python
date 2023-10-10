@@ -9,7 +9,7 @@ Usage:
     python employee_todo_progress.py <employee_id>
 
 Arguments:
-    - <employee_id>: The ID of the employee whgose tasks need to be recorded.
+    - <employee_id>: The ID of the employee whose tasks need to be recorded.
 
 Example Usage:
     python employee_todo_progress.py 1
@@ -40,7 +40,6 @@ def get_employee_todo_progress(employee_id):
     todo_url = f"{base_url}/todos?userId={employee_id}"
 
     try:
-        # Fetch employee details
         with urllib.request.urlopen(employee_url) as response:
             if response.getcode() == 200:
                 employee_data = json.loads(response.read().decode())
@@ -57,16 +56,19 @@ def get_employee_todo_progress(employee_id):
                 return
 
         tasks = []
+
         for task in todo_data:
-            tasks.append({
+            task_info = {
                 "task": task['title'],
                 "completed": task['completed'],
                 "username": employee_name
-                })
-        
-        with open(f"{employee_id}.json", "w") as json_file:
-            json.dump({str(employee_id): tasks}, json_file, indent=4)
+            }
+            tasks.append(task_info)
 
+        result_data = {str(employee_id): tasks}
+
+        with open(f"{employee_id}.json", "w") as json_file:
+            json.dump(result_data, json_file, indent=4)
 
     except urllib.error.URLError as e:
         print(f"Error: {e}")
