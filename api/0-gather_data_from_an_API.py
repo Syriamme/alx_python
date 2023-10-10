@@ -10,13 +10,16 @@ def get_employee_todo_progress(employee_id):
     todo_url = f"{base_url}/todos?userId={employee_id}"
 
     try:
+        # Fetch employee details
         with urllib.request.urlopen(employee_url) as response:
             if response.getcode() == 200:
                 employee_data = json.loads(response.read().decode())
+                employee_name = employee_data["name"]
             else:
                 print(f"Error: Unable to fetch employee details. Status Code: {response.getcode()}")
                 return
         
+        # Fetch TODO list for the employee
         with urllib.request.urlopen(todo_url) as response:
             if response.getcode() == 200:
                 todo_data = json.loads(response.read().decode())
@@ -24,16 +27,12 @@ def get_employee_todo_progress(employee_id):
                 print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
                 return
 
+        # Calculate progress
         total_tasks = len(todo_data)
+        completed_tasks = sum(1 for task in todo_data if task['completed'])
 
-        completed_tasks = 0
-        for task in todo_data:
-            if task['completed']:
-                completed_tasks += 1
-        
-        progress_line = f"Employee {employee_data['name']} is done with tasks ({completed_tasks}/{total_tasks}):"
-        print(progress_line)
-        
+        # Display progress in the specified format
+        print(f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):")
         for task in todo_data:
             if task['completed']:
                 print(f"\t{task['title']}")
