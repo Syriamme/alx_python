@@ -1,29 +1,81 @@
 #!/usr/bin/python3
 
+"""
+Module: employee_todo_progress.py
+
+This module fetches and records the tasks owned by an employee from an external API and stores them in a JSON file.
+
+Usage:
+    python employee_todo_progress.py <employee_id>
+
+Arguments:
+    - <employee_id>: The ID of the employee whose tasks need to be recorded.
+
+Example Usage:
+    python employee_todo_progress.py 1
+
+This script fetches the employee's details and their associated tasks from the JSONPlaceholder API
+based on the provided employee_id. It then records these tasks in a JSON file named USER_ID.json,
+where USER_ID is the employee's ID.
+
+Functions:
+    - get_employee_todo_progress(employee_id):
+        Fetches employee details and their associated tasks, records them in a JSON file,
+        and prints the progress.
+
+Dependencies:
+    - json: For handling JSON data.
+    - sys: For handling command-line arguments and exit codes.
+    - urllib.request: For making HTTP requests to the external API.
+"""
+
 import json
 import sys
 import urllib.request
 
-def export_employee_todo_progress_to_json(employee_id, filename):
-    """
-    Exports employee TODO progress to a JSON file.
+def get_employee_todo_progress(employee_id):
+    base_url = "https://jsonplaceholder.typicode.com"
+    employee_url = f"{base_url}/users/{employee_id}"
+    todo_url = f"{base_url}/todos?userId={employee_id}"
 
-    Args:
-        employee_id (int): The ID of the employee.
-        filename (str): The filename of the JSON file.
-    """
-    employee_name = get_employee_name(employee_id)
-    todo_data = get_employee_todo_data(employee_id)
+    try:
+        with urllib.request.urlopen(employee_url) as response:
+            if response.getcode() == 200:
+                employee_data = json.loads(response.read().decode())
+                employee_name = employee_data["username"]
+            else:
+                print(f"Error: Unable to fetch employee details. Status Code: {response.getcode()}")
+                return
 
-    data_to_export = {
-        "USER_ID": [
-            {"task": task["title"], "completed": task["completed"], "username": employee_name}
-            for task in todo_data
-        ]
-    }
+        with urllib.request.urlopen(todo_url) as response:
+            if response.getcode() == 200:
+                todo_data = json.loads(response.read().decode())
+            else:
+                print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
+                return
 
-    with open(filename, "w") as json_file:
-        json.dump(data_to_export, json_file, indent=4)
+        tasks = []
+        for task in todo_data:
+            tasks.append({
+                "task": task['title'],
+                "completed": task['completed'],
+                "username": employee_name
+            })
+
+        with open(f"{employee_id}.json", "w") as json_file:
+            json.dump({str(employee_id): tasks}, json_file, indent=4)
+
+        total_tasks = len(todo_data)
+        completed_tasks = sum(1 for task in todo_data if task['completed'])
+
+        print(f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):")
+
+        for task in todo_data:
+            if task["completed"]:
+                print(f"\t {task['title']}")
+    
+    except urllib.error.URLError as e:
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -32,7 +84,6 @@ if __name__ == "__main__":
 
     try:
         employee_id = int(sys.argv[1])
-        filename = f"{employee_id}.json"
-        export_employee_todo_progress_to_json(employee_id, filename)
+        get_employee_todo_progress(employee_id)
     except ValueError:
         print("Please enter a valid integer for the employee ID.")
