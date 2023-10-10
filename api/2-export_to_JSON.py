@@ -55,6 +55,7 @@ def get_employee_todo_progress(employee_id):
                 print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
                 return
 
+        # Create a list to store tasks
         tasks = []
 
         for task in todo_data:
@@ -65,10 +66,9 @@ def get_employee_todo_progress(employee_id):
             }
             tasks.append(task_info)
 
-        result_data = {str(employee_id): tasks}
-
+        # Export data to JSON file as a list
         with open(f"{employee_id}.json", "w") as json_file:
-            json.dump(result_data, json_file, indent=4)
+            json.dump(tasks, json_file, indent=4)
 
     except urllib.error.URLError as e:
         print(f"Error: {e}")
