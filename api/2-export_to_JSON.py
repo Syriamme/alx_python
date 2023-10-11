@@ -1,34 +1,5 @@
 #!/usr/bin/python3
 
-"""
-Module: employee_todo_progress.py
-
-This module fetches and records the tasks owned by an employee from an external API and stores them in a JSON file.
-
-Usage:
-    python employee_todo_progress.py <employee_id>
-
-Arguments:
-    - <employee_id>: The ID of the employee whose tasks need to be recorded.
-
-Example Usage:
-    python employee_todo_progress.py 1
-
-This script fetches the employee's details and their associated tasks from the JSONPlaceholder API
-based on the provided employee_id. It then records these tasks in a JSON file named USER_ID.json,
-where USER_ID is the employee's ID.
-
-Functions:
-    - get_employee_todo_progress(employee_id):
-        Fetches employee details and their associated tasks, records them in a JSON file,
-        and prints the progress.
-
-Dependencies:
-    - json: For handling JSON data.
-    - sys: For handling command-line arguments and exit codes.
-    - urllib.request: For making HTTP requests to the external API.
-"""
-
 import json
 import sys
 import urllib.request
@@ -42,7 +13,7 @@ def get_employee_todo_progress(employee_id):
         with urllib.request.urlopen(employee_url) as response:
             if response.getcode() == 200:
                 employee_data = json.loads(response.read().decode())
-                employee_name = employee_data["username"]
+                employee_name = employee_data["name"]
             else:
                 print(f"Error: Unable to fetch employee details. Status Code: {response.getcode()}")
                 return
@@ -54,23 +25,24 @@ def get_employee_todo_progress(employee_id):
                 print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
                 return
 
-        # Create a list to store tasks
-        tasks = []
+        total_tasks = len(todo_data)
+        completed_tasks = sum(1 for task in todo_data if task['completed'])
+
+        print(f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):")
 
         for task in todo_data:
-            task_info = {
-                "task": task['title'],
-                "completed": task['completed'],
-                "username": employee_name
-            }
-            tasks.append(task_info)
+            if task["completed"]:
+                print(f"\t {task['title']}")
 
-        # Export data to JSON file as a dictionary with USER_ID and the list of tasks
-        result_data = {str(employee_id): tasks}
+        data = {
+            
+        }
+        
+        output_file = f"{employee_id}.json"
 
-        with open(f"{employee_id}.json", "w") as json_file:
-            json.dump(result_data, json_file, indent=4)
-
+        with open(output_file, "w") as json_file:
+            json.dump(data, json_file, indent=4)
+    
     except urllib.error.URLError as e:
         print(f"Error: {e}")
 
