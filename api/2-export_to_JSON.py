@@ -66,7 +66,7 @@ def export_employee_todo_data(employee_id):
         with urllib.request.urlopen(employee_url) as response:
             if response.getcode() == 200:
                 employee_data = json.loads(response.read().decode())
-                employee_name = employee_data["name"]
+                employee_name = employee_data["username"]
             else:
                 print(f"Error: Unable to fetch employee details. Status Code: {response.getcode()}")
                 return
