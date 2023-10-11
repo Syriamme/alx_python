@@ -44,7 +44,7 @@ def export_employee_todo_data(employee_id):
         with urllib.request.urlopen(employee_url) as response:
             if response.getcode() == 200:
                 employee_data = json.loads(response.read().decode())
-                employee_name = employee_data["username"]
+                employee_name = employee_data.get("username")
             else:
                 print(f"Error: Unable to fetch employee details. Status Code: {response.getcode()}")
                 return
@@ -60,7 +60,11 @@ def export_employee_todo_data(employee_id):
         # Create a dictionary to store user data and tasks
         user_data = {
             str(employee_id): [
-                {"task": task["title"], "completed": task["completed"], "username": employee_name}
+                {
+                    "task": task.get("title"),
+                    "completed": task.get("completed"),
+                    "username": employee_name
+                }
                 for task in todo_data
             ]
         }
@@ -68,9 +72,6 @@ def export_employee_todo_data(employee_id):
         # Export user data to a JSON file with an indent of 4 spaces
         with open(f"{employee_id}.json", 'w') as outfile:
             json.dump(user_data, outfile, indent=4)
-
-        # Print a success message
-        print(f"Data exported to {employee_id}.json")
 
     except urllib.error.URLError as e:
         print(f"Error: {e}")
