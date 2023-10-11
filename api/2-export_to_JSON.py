@@ -37,7 +37,7 @@ def export_employee_todo_data(employee_id):
     # Define the base URL and URLs for fetching employee and TODO data
     base_url = "https://jsonplaceholder.typicode.com"
     employee_url = f"{base_url}/users/{employee_id}"
-    todo_url = f"{base_url}/todos?userId={employee_id}"
+    todo_url = f"{base_url}/users/{employee_id}/todos"
 
     try:
         # Fetch employee data
@@ -60,11 +60,7 @@ def export_employee_todo_data(employee_id):
         # Create a dictionary to store user data and tasks
         user_data = {
             str(employee_id): [
-                {
-                    "task": task.get("title"),
-                    "completed": task.get("completed"),
-                    "username": employee_name
-                }
+                {"task": task.get("title"), "completed": task.get("completed"), "username": employee_name}
                 for task in todo_data
             ]
         }
