@@ -29,12 +29,12 @@ Dependencies:
     - urllib.request: For making HTTP requests to the external API.
 """
 
+
 import json
 import requests
 import sys
 
 def export_employee_todo_data(employee_id):
-    # Define the base URL and URLs for fetching employee and TODO data
     base_url = "https://jsonplaceholder.typicode.com"
     employee_url = f"{base_url}/users/{employee_id}"
     todo_url = f"{base_url}/users/{employee_id}/todos"
@@ -68,14 +68,12 @@ def export_employee_todo_data(employee_id):
             }
             tasks.append(task_info)
 
-        # Export data to JSON file as a dictionary with USER_ID and the list of tasks
-        result_data = {str(employee_id): tasks}
+        # Create the final user data dictionary
+        user_data = {str(employee_id): tasks}
 
+        # Export data to JSON file
         with open(f"{employee_id}.json", "w") as json_file:
-            json.dump(result_data, json_file)
-
-        # Print a success message
-        print(f"Data exported to {employee_id}.json")
+            json.dump(user_data, json_file)
 
     except requests.exceptions.RequestException as e:
         print(f"Error: {e}")
