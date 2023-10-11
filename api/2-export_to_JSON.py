@@ -51,7 +51,9 @@ def export_employee_todo_data(employee_id):
         urllib.error.URLError: If there is an issue with the URL request.
 
     """
-    import json
+
+
+import json
 import sys
 import urllib.request
 
