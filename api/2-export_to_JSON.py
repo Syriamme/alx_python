@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 import json
 import sys
 import urllib.request
@@ -21,7 +22,6 @@ def export_employee_todo_data(employee_id):
 
     Raises:
         urllib.error.URLError: If there is an issue with the URL request.
-
     """
     base_url = "https://jsonplaceholder.typicode.com"
     employee_url = f"{base_url}/users/{employee_id}"
@@ -38,7 +38,7 @@ def export_employee_todo_data(employee_id):
 
         with urllib.request.urlopen(todo_url) as response:
             if response.getcode() == 200:
-                todo_data = json.loads(response.read().decode())
+                todo_data = json.loads response.read().decode())
             else:
                 print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
                 return
