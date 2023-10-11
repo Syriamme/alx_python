@@ -71,7 +71,7 @@ def export_employee_todo_data(employee_id):
 
         # Export user data to a JSON file with an indent of 4 spaces
         with open(f"{employee_id}.json", 'w') as outfile:
-            json.dump(user_data, outfile, indent=4)
+            json.dump(user_data, outfile)
 
     except urllib.error.URLError as e:
         print(f"Error: {e}")
