@@ -34,30 +34,6 @@ import sys
 import urllib.request
 
 def export_employee_todo_data(employee_id):
-    """
-    Export employee's TODO data to a JSON file.
-
-    This function fetches employee information and their tasks from a remote API,
-    constructs a JSON representation of the data, and saves it to a file named
-    after the employee's ID.
-
-    Args:
-        employee_id (int): The ID of the employee for whom to export the TODO data.
-
-    Returns:
-        None
-
-    Raises:
-        urllib.error.URLError: If there is an issue with the URL request.
-
-    """
-
-
-import json
-import sys
-import urllib.request
-
-def export_employee_todo_data(employee_id):
     # Define the base URL and URLs for fetching employee and TODO data
     base_url = "https://jsonplaceholder.typicode.com"
     employee_url = f"{base_url}/users/{employee_id}"
