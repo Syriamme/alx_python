@@ -33,10 +33,10 @@ import json
 import requests
 import sys
 
-def export_employee_todo_data(employee_id):
+def export_employee_todo_data(user_id):
     base_url = "https://jsonplaceholder.typicode.com"
-    employee_url = f"{base_url}/users/{employee_id}"
-    todo_url = f"{base_url}/users/{employee_id}/todos"
+    employee_url = f"{base_url}/users/{user_id}"
+    todo_url = f"{base_url}/users/{user_id}/todos"
 
     #fetching employee details
     try:
@@ -68,10 +68,9 @@ def export_employee_todo_data(employee_id):
             tasks.append(task_info)
 
         # user data dictionary
-        user_id = f"{employee_id}"
         user_data = {user_id: tasks}
 
-        with open(f"{employee_id}.json", "w") as json_file:
+        with open(f"{user_id}.json", "w") as json_file:
             json.dump(user_data, json_file)
 
 
