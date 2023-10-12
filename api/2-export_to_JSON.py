@@ -81,7 +81,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     try:
-        employee_id = int(sys.argv[1])
+        employee_id = sys.argv[1]
         export_employee_todo_data(employee_id)
     except ValueError:
         print("Please enter a valid integer for the employee ID.")
