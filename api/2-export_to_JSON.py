@@ -34,63 +34,93 @@ import json
 import requests
 import sys
 
-def export_employee_todo_data(employee_id):
-    """
-    Fetches the employee's TODO list and progress from the JSON Placeholder API
-    and exports them to a JSON file.
+dimport json
+import sys
+import urllib.request
 
-    Args:
-        employee_id (int): The ID of the employee.
+def get_employee_todo_progress(employee_id):
+  """Fetches the employee's TODO list and progress from the JSON Placeholder API.
 
-    Returns:
-        None
-    """
-    base_url = "https://jsonplaceholder.typicode.com"
-    employee_url = f"{base_url}/users/{employee_id}"
-    todo_url = f"{base_url}/users/{employee_id}/todos"
+  Args:
+    employee_id: The ID of the employee.
 
-    try:
-        # Fetch employee details
-        response = requests.get(employee_url)
-        response.raise_for_status()
-        employee_data = response.json()
-        employee_name = employee_data["username"]
+  Returns:
+    A list of tasks, where each task is a dictionary with the following keys:
+      * task: The title of the task.
+      * completed: Whether the task is completed.
+      * username: The name of the employee who owns the task.
+  """
 
-        # Fetch TODO list
-        response = requests.get(todo_url)
-        response.raise_for_status()
-        todo_data = response.json()
+  base_url = "https://jsonplaceholder.typicode.com"
+  employee_url = f"{base_url}/users/{employee_id}"
+  todo_url = f"{base_url}/users/{employee_id}/todos"
 
-        # Create a list of tasks with the required keys
-        tasks = []
-        for task in todo_data:
-            tasks.append({
-                "task": task["title"],
-                "completed": task["completed"],
-                "username": employee_name
-            })
+  try:
+    with urllib.request.urlopen(employee_url) as response:
+      if response.getcode() == 200:
+        employee_data = json.loads(response.read().decode())
+        employee_name = employee_data["name"]
+      else:
+        print(f"Error: Unable to fetch employee details. Status Code: {response.getcode()}")
+        return
 
-        json_data = {str(employee_id): tasks}
+    with urllib.request.urlopen(todo_url) as response:
+      if response.getcode() == 200:
+        todo_data = json.loads(response.read().decode())
+      else:
+        print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
+        return
 
-        with open(f"{employee_id}.json", "w") as f:
-            json.dump(json_data, f)
+    # Create a list of tasks, with each task being a dictionary with the required keys.
+    tasks = []
+    for task in todo_data:
+      tasks.append({
+        "task": task["title"],
+        "completed": task["completed"],
+        "username": employee_name
+      })
 
-        print(f"Tasks for employee {employee_id} exported to {employee_id}.json")
+    return tasks
 
-    except requests.exceptions.RequestException as e:
-        print(f"Error: {e}")
-        sys.exit(1)
+  except urllib.error.URLError as e:
+    print(f"Error: {e}")
+    return
+
+def export_employee_todo_progress_to_json(employee_id, tasks):
+  """Exports the employee's TODO list and progress to a JSON file.
+
+  Args:
+    employee_id: The ID of the employee.
+    tasks: A list of tasks, where each task is a dictionary with the following keys:
+      * task: The title of the task.
+      * completed: Whether the task is completed.
+      * username: The name of the employee who owns the task.
+  """
+
+  # Create a JSON object with the employee's ID and tasks.
+  json_data = {
+    "USER_ID": employee_id,
+    "tasks": tasks
+  }
+
+  # Write the JSON data to a file.
+  with open(f"{employee_id}.json", "w") as f:
+    json.dump(json_data, f)
+
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python script.py <employee_id>")
-        sys.exit(1)
+  if len(sys.argv) != 2:
+    print("Usage: python script.py <employee_id>")
+    sys.exit(1)
 
-    try:
-        employee_id = int(sys.argv[1])
+  try:
+    employee_id = int(sys.argv[1])
 
-        # Export the employee's TODO list and progress to a JSON file
-        export_employee_todo_data(employee_id)
+    # Get the employee's TODO list and progress.
+    tasks = get_employee_todo_progress(employee_id)
 
-    except ValueError:
-        print("Please enter a valid integer for the employee ID.")
+    # Export the employee's TODO list and progress to a JSON file.
+    export_employee_todo_progress_to_json(employee_id, tasks)
+
+  except ValueError:
+    print("Please enter a valid integer for the employee ID.")
