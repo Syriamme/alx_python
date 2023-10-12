@@ -30,6 +30,7 @@ Dependencies:
 """
 
 import json
+import os
 import requests
 import sys
 
@@ -39,41 +40,45 @@ def export_employee_todo_data(employee_id):
     todo_url = f"{base_url}/users/{employee_id}/todos"
 
     try:
+        # Validate employee_id
+        if not str(employee_id).isnumeric() or employee_id <= 0:
+            print("Error: Invalid employee ID. Please enter a positive integer.")
+            return
+
+        # Fetch employee details
         employee_response = requests.get(employee_url)
-        if employee_response.status_code == 200:
-            employee_data = employee_response.json()
-            employee_name = employee_data.get("username")
-        else:
-            print(f"Error: Unable to fetch employee details. Status Code: {employee_response.status_code}")
-            return
+        employee_response.raise_for_status()
+        employee_data = employee_response.json()
+        employee_name = employee_data["username"]
 
+        # Fetch employee's tasks
         todo_response = requests.get(todo_url)
-        if todo_response.status_code == 200:
-            todo_data = todo_response.json()
-        else:
-            print(f"Error: Unable to fetch TODO list. Status Code: {todo_response.status_code}")
-            return
+        todo_response.raise_for_status()
+        todo_data = todo_response.json()
 
-        # a list to store tasks
+        # Create a list of tasks
         tasks = []
-
         for task in todo_data:
             task_info = {
-                "task": task.get("title"),
-                "completed": task.get("completed"),
+                "task": task["title"],
+                "completed": task["completed"],
                 "username": employee_name
             }
             tasks.append(task_info)
 
-        # user data dictionary
+        # Create the user data dictionary
         user_data = {str(employee_id): tasks}
 
-        with open(f"{employee_id}.json", "w") as json_file:
-            json.dump(user_data, json_file)
+        # Get the file path using os.path.join
+        file_path = os.path.join(os.getcwd(), f"{employee_id}.json")
 
+        with open(file_path, "w") as json_file:
+            json.dump(user_data, json_file)
 
     except requests.exceptions.RequestException as e:
         print(f"Error: {e}")
+    except json.JSONDecodeError:
+        print("Error: Failed to decode JSON response.")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -81,7 +86,6 @@ if __name__ == "__main__":
         sys.exit(1)
 
     try:
-        # Get the employee ID from the command-line argument
         employee_id = int(sys.argv[1])
         export_employee_todo_data(employee_id)
     except ValueError:
