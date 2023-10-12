@@ -71,7 +71,7 @@ def get_employee_todo_progress(employee_id):
             json_data[str(employee_id)].append(task_data)
 
         with open(f"{employee_id}.json", "w") as f:
-            json.dump(json_data, f, indent=4)
+            json.dump(json_data, f)
 
         print(f"Task data for Employee {employee_id} has been saved to {employee_id}.json.")
 
