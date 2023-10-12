@@ -38,6 +38,7 @@ def export_employee_todo_data(employee_id):
     employee_url = f"{base_url}/users/{employee_id}"
     todo_url = f"{base_url}/users/{employee_id}/todos"
 
+    #fetching employee details
     try:
         employee_response = requests.get(employee_url)
         if employee_response.status_code == 200:
@@ -46,7 +47,8 @@ def export_employee_todo_data(employee_id):
         else:
             print(f"Error: Unable to fetch employee details. Status Code: {employee_response.status_code}")
             return
-
+        
+    #fetching to do list
         todo_response = requests.get(todo_url)
         if todo_response.status_code == 200:
             todo_data = todo_response.json()
@@ -66,7 +68,7 @@ def export_employee_todo_data(employee_id):
             tasks.append(task_info)
 
         # user data dictionary
-        user_data = {str(employee_id): tasks}
+        user_data = {f"USER_{employee_id}": tasks}
 
         with open(f"{employee_id}.json", "w") as json_file:
             json.dump(user_data, json_file)
