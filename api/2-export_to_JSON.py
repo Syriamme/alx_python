@@ -48,29 +48,27 @@ def export_employee_todo_data(employee_id):
     todo_url = f"{base_url}/users/{employee_id}/todos"
 
     try:
-        # Get the employee's details.
         response = requests.get(employee_url)
         employee_data = json.loads(response.content.decode())
         employee_name = employee_data["username"]
 
-        # Get the employee's TODO list.
         response = requests.get(todo_url)
         todo_data = json.loads(response.content.decode())
 
-        # Create a list of tasks, with each task being a dictionary with the required keys.
         tasks = []
         for task in todo_data:
-            tasks.append({
+            task_entry = {
                 "task": task["title"],
                 "completed": task["completed"],
                 "username": employee_name
-            })
+            }
+            tasks.append(task_entry)
 
-        # Create a JSON object with the employee's ID as the key and tasks as the value.
-        json_data = {str(employee_id): tasks}
+        json_data = {employee_id: tasks}
 
-        # Write the JSON data to a file.
-        with open(f"{employee_id}.json", "w") as f:
+        filename = f"{employee_id}.json"
+
+        with open(filename, "w") as f:
             json.dump(json_data, f)
 
     except requests.exceptions.RequestException as e:
