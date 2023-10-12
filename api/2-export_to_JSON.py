@@ -54,7 +54,7 @@ def export_employee_todo_data(employee_id):
             print(f"Error: Unable to fetch TODO list. Status Code: {todo_response.status_code}")
             return
 
-        # Create a list to store tasks
+        # a list to store tasks
         tasks = []
 
         for task in todo_data:
@@ -65,10 +65,9 @@ def export_employee_todo_data(employee_id):
             }
             tasks.append(task_info)
 
-        # Create the final user data dictionary
+        # user data dictionary
         user_data = {str(employee_id): tasks}
 
-        # Export data to JSON file
         with open(f"{employee_id}.json", "w") as json_file:
             json.dump(user_data, json_file)
 
