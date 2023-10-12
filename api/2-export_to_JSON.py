@@ -31,8 +31,8 @@ Dependencies:
 
 
 import json
-import sys
 import requests
+import sys
 
 def export_employee_todo_data(employee_id):
     """
