@@ -70,10 +70,8 @@ def export_employee_todo_data(employee_id):
                 "username": employee_name
             })
 
-        # Create a JSON object with the employee's ID and tasks
         json_data = {str(employee_id): tasks}
 
-        # Write the JSON data to a file
         with open(f"{employee_id}.json", "w") as f:
             json.dump(json_data, f)
 
