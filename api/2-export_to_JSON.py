@@ -68,7 +68,7 @@ def export_employee_todo_data(employee_id):
             tasks.append(task_info)
 
         # user data dictionary
-        user_data = {f"USER_{employee_id}": tasks}
+        user_data = {employee_id: tasks}
 
         with open(f"{employee_id}.json", "w") as json_file:
             json.dump(user_data, json_file)
