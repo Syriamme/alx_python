@@ -30,49 +30,55 @@ Dependencies:
 """
 
 import json
-import requests
 import sys
+import urllib.request
 
-def export_employee_todo_data(employee_id):
+def get_employee_todo_progress(employee_id):
     base_url = "https://jsonplaceholder.typicode.com"
     employee_url = f"{base_url}/users/{employee_id}"
     todo_url = f"{base_url}/users/{employee_id}/todos"
 
-    #fetching employee details
     try:
-        employee_response = requests.get(employee_url)
-        if employee_response.status_code == 200:
-            employee_data = employee_response.json()
-            employee_name = employee_data.get("username")
-        else:
-            print(f"Error: Unable to fetch employee details. Status Code: {employee_response.status_code}")
-            return
-        
-    #fetching to do list
-        todo_response = requests.get(todo_url)
-        if todo_response.status_code == 200:
-            todo_data = todo_response.json()
-        else:
-            print(f"Error: Unable to fetch TODO list. Status Code: {todo_response.status_code}")
-            return
+        with urllib.request.urlopen(employee_url) as response:
+            if response.getcode() == 200:
+                employee_data = json.loads(response.read().decode())
+                employee_name = employee_data["name"]
+                username = employee_data["username"]
+            else:
+                print(f"Error: Unable to fetch employee details. Status Code: {response.getcode()}")
+                return
 
-        # a list to store tasks
-        tasks = []
+        with urllib.request.urlopen(todo_url) as response:
+            if response.getcode() == 200:
+                todo_data = json.loads(response.read().decode())
+            else:
+                print(f"Error: Unable to fetch TODO list. Status Code: {response.getcode()}")
+                return
+
+        total_tasks = len(todo_data)
+        completed_tasks = sum(1 for task in todo_data if task['completed'])
+
+        # Export to JSON
+        json_data = {str(employee_id): []}
 
         for task in todo_data:
-            task_info = {
-                "task": task.get("title"),
-                "completed": task.get("completed"),
-                "username": employee_name
+            task_data = {
+                "task": task["title"],
+                "completed": task["completed"],
+                "username": username
             }
-            tasks.append(task_info)
 
-        with open(f"{employee_id}.json", "w") as json_file:
-            json.dump({employee_id: tasks}, json_file)
+            json_data[str(employee_id)].append(task_data)
 
+        with open(f"{employee_id}.json", "w") as f:
+            json.dump(json_data, f, indent=4)
 
-    except requests.exceptions.RequestException as e:
+        print(f"Task data for Employee {employee_id} has been saved to {employee_id}.json.")
+
+    except urllib.error.URLError as e:
         print(f"Error: {e}")
+    except json.JSONDecodeError as e:
+        print(f"Error: Unable to decode JSON response - {e}")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -80,8 +86,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     try:
-        # Get the employee ID from the command-line argument
-        employee_id = sys.argv[1]
-        export_employee_todo_data(employee_id)
+        employee_id = int(sys.argv[1])
+        get_employee_todo_progress(employee_id)
     except ValueError:
         print("Please enter a valid integer for the employee ID.")
